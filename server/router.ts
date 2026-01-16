@@ -1,3 +1,5 @@
 const test: string = "this is a test"!
 
-export { test };
+module.exports = {
+  test
+};
