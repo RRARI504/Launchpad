@@ -18,5 +18,5 @@ app.use(express.static(path.join(__dirname, '..', 'dist')));
 console.log(test);
 
 app.listen(port, () => {
-  console.info(`Listening on port ${port}`);
+  console.info(`Listening on http://localhost:${port}`);
 });
