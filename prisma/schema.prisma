@@ -27,7 +27,7 @@ model Dashboard {
   owner      User    @relation("UserDashboards", fields: [ownerId], references: [id])
   ownerId    Int
   theme      Theme @relation(fields: [themeId], references: [id])
-  themeId    Int
+  themeId    Int @unique
   primaryOf  User?  @relation("PrimaryDash")
 }
 
