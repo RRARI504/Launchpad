@@ -24,14 +24,14 @@ async function main() {
 
   await prisma.layout.createMany({
     data: [
-      { public: true, gridSize: 'medium' },
-      { public: true, gridSize: 'medium' },
-      { public: true, gridSize: 'medium' },
-      { public: true, gridSize: 'medium' }
+      { public: true, ownerId: 1, gridSize: 'medium' },
+      { public: true, ownerId: 1, gridSize: 'medium' },
+      { public: true, ownerId: 1, gridSize: 'medium' },
+      { public: true, ownerId: 1, gridSize: 'medium' }
     ]
   });
 
-  await prisma.layoutelement.createMany({
+  await prisma.layoutElement.createMany({
     data: [
       { layoutId: 1, widgetId: 1, posX: 1, posY: 1, sizeX: 1, sizeY: 1 },
       { layoutId: 1, widgetId: 2, posX: 5, posY: 1, sizeX: 1, sizeY: 1 },
@@ -43,9 +43,9 @@ async function main() {
 
   await prisma.theme.createMany({
     data: [
-      { public: true, navColor: '#0000FF', bgColor: '#00FFFF', font: "Constantia" },
-      { public: true, navColor: '#FF0000', bgColor: '#FF00FF', font: "Constantia" },
-      { public: true, navColor: '#00FF00', bgColor: '#FFFF00', font: "Constantia" }
+      { public: true, ownerId: 1, navColor: '#0000FF', bgColor: '#00FFFF', font: "Constantia" },
+      { public: true, ownerId: 1, navColor: '#FF0000', bgColor: '#FF00FF', font: "Constantia" },
+      { public: true, ownerId: 1, navColor: '#00FF00', bgColor: '#FFFF00', font: "Constantia" }
     ]
   });
 
