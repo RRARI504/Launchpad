@@ -40,12 +40,7 @@ app.use(express.json());
 app.use(express.static(join(__dirname, '..', 'dist')));
 
 app.use(router);
-<<<<<<< HEAD
 app.use('/theme', theme);
-app.listen(port, () => {
-=======
-
 app.listen(port, host, () => {
->>>>>>> eab20e149c48a769abf590aa7f925d0a4a269ef9
   console.info(`Listening on http://localhost:${port}`);
 });
