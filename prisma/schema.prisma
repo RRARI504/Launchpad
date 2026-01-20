@@ -45,6 +45,7 @@ model Theme {
 model Layout {
   id Int  @id @default(autoincrement())
   public    Boolean
+  
   gridSize  String
 }
 
@@ -63,4 +64,5 @@ model LayoutElement {
 model Widget {
   id Int  @id @default(autoincrement())
   name       String
+
 }
