@@ -55,7 +55,8 @@ router.post('/logout', function(req, res, next) {
   });
 });
 
-passport.serializeUser(function(user : User, cb) { //TODO: Fix this TS error.
+passport.serializeUser(function(user : any, cb) { //TODO: Replace Any with whatever it should be. (User doesn't work, but is what the function should take in.)
+  console.log(user);
   process.nextTick(function() {
     return cb(null, { id: user.id, name: user.name });
   });

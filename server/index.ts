@@ -15,6 +15,8 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
+import theme from './routers/theme.js'
+import test from './database/script.js';
 
 const app = express();
 /*
@@ -65,6 +67,8 @@ app.use(passport.authenticate('session'));
 
 app.use('/', authRouter);
 
+app.use(router);
+app.use('/theme', theme);
 app.listen(port, host, () => {
   console.info(`Listening on http://localhost:${port}`);
 });
