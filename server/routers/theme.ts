@@ -12,7 +12,26 @@ theme.get('/', (req, res) => {
 
 // POST - This is for the user clicking something like 'Create a new theme'
 // change the dashboard color
+theme.post('/', async (req, res) => {
+  // need to insert information
+  // console.log(req)
+  const { public: isPublic, navColor, bgColor, font, ownerId} = req.body as {public: boolean, navColor: string, bgColor: string, font: string, ownerId: number}
 
+  try {
+    await prisma.theme.create({
+      data: {
+      public: isPublic,
+      navColor,
+      bgColor,
+      font,
+      ownerId
+      }
+    })
+  } catch (error) {
+    console.error('You already have this theme', error);
+    res.sendStatus(500);
+  }
+})
 
 
 // POST - This is for the user clicking something like 'Create a new theme' and they have to enter a title
