@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
   callbackURL: '/oauth2/redirect/google',
   scope: [ 'profile' ]
-}, function verify (issuer : string, profile : {id: number, displayName: string}, cb : Function) {
+}, function verify (issuer : string, profile : {id: string, displayName: string}, cb : Function) {
   prisma.user.findFirst({
     where: {
       credentialProvider: issuer,
@@ -51,7 +51,6 @@ router.post('/logout', function(req, res, next) {
 });
 
 passport.serializeUser(function(user : any, cb) { //TODO: Replace Any with whatever it should be. (User doesn't work, but is what the function should take in.)
-  console.log(user);
   process.nextTick(function() {
     return cb(null, { id: user.id, name: user.name });
   });

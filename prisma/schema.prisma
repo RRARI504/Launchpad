@@ -17,7 +17,7 @@ model User {
   primaryDash        Dashboard?  @relation("PrimaryDash", fields: [primaryDashId], references: [id])
   primaryDashId      Int?        @unique
   credentialProvider String
-  credentialSubject  Int
+  credentialSubject  String
   themes             Theme[]
   layouts            Layout[]
 }
