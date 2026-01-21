@@ -4,15 +4,14 @@ import axios from 'axios';
 function Dashboard ({dashboardId, toggleEditing}: {dashboardId: number, toggleEditing: () => void}) {
   const [dashboard, setDashboard] = useState({name: "Loading"});
   
-  const loadDashboard = () => {
-    axios.get(`/dashboard/${dashboardId}`)
-      .then((response) => {
-        console.log(response.data);
-        setDashboard(response.data);
-      })
-      .catch((error)=> {
-        console.error('Failed to get dashboard:', error);
-      })
+  const loadDashboard = async () => {
+    try {
+      const response = await axios.get(`/dashboard/${dashboardId}`);
+      console.log(response.data);
+      setDashboard(response.data);
+    } catch (error) {
+      console.error('Failed to get dashboard:', error);
+    }
   };
 
   useEffect(() => {
