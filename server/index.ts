@@ -53,7 +53,7 @@ app.use(express.static(join(__dirname, '..', '..','dist'))); // evidently this i
 
 // * AUTH STUFF FROM HERE ON
 app.use(session({
-  secret: 'temp test', // TODO: Change this later.
+  secret: 'temp test', // TODO: Change this later to an env variable.
   resave: true,
   saveUninitialized: false,
   store: new PrismaSessionStore(prisma, {
