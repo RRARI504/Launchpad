@@ -36,16 +36,16 @@ passport.use(new GoogleStrategy({
   })
 }));
 
-router.get('/login', function (req, res, next) {
-  // res.render('login'); need a login page to make it work
-  // TODO: Get this route to go somewhere, or just remove it altogether and keep the button on the page.
-});
+// router.get('/login', function (req, res, next) {
+//   // res.render('login'); need a login page to make it work
+//   // TODO: Get this route to go somewhere, or just remove it altogether and keep the button on the page.
+// });
 
 router.get('/login/federated/google', passport.authenticate('google'));
 
 router.get('/oauth2/redirect/google', passport.authenticate('google', {
   successRedirect: '/',
-  failureRedirect: '/login' //TODO: Decide what to do here.
+  failureRedirect: '/'
 }));
 
 router.post('/logout', function(req, res, next) {

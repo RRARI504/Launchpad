@@ -49,7 +49,7 @@ const host = '0.0.0.0';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
-app.use(express.static(join(__dirname, '..', 'dist')));
+app.use(express.static(join(__dirname, '..', '..','dist')));
 
 // * AUTH STUFF FROM HERE ON
 app.use(session({
