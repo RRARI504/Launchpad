@@ -12,9 +12,28 @@ layout.get('/', (req, res) => {
 });
 
 
-// layout.get('/public',() => {
+//this should get all public layouts
+layout.get('/public', async (req, res) => {
+  try {
+    const layouts = await prisma.layout.findMany({
+      where: {
+        public: true
+      },
+      include: {
+        layoutElements: {
+          include: {
+            widget: true
+          }
+        }
+      }
+    })
+    res.status(200).send(layouts)
+  } catch (error) {
+    res.status(500).send({'Could not fetch public layouts:': error})
+  }
 
-// })
+})
+
 
 
 
