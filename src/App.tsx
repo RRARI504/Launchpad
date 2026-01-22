@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+// import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router";
 
 import Dashboard from './Dashboard';
 import DashEditor from './DashEditor';
@@ -12,7 +14,10 @@ function App() {
     setEditing((e: boolean) => !e);
   }
 
-  const dashboardId = 1; // hardcoded for now
+  const activeDash = 1; // hardcoded for now
+  // eventually want something like:
+  // const [activeDash, setActiveDash] = useState(null)
+  // what happens if the user doesn't have any dashboards?
 
   const handleLogOut = () => {
     console.log("log out test");
@@ -43,6 +48,12 @@ function App() {
       <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
       <button className="testGetUserData" onClick={() => {getUserData()}}>Get User Data</button>
       <p>{userDataMessage}</p>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Dashboard dashboardId={activeDash}/>} />
+          <Route path='/edit' element={<DashEditor dashboardId={activeDash}/>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
