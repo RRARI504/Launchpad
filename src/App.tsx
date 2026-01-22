@@ -7,12 +7,7 @@ import Dashboard from './Dashboard';
 import DashEditor from './DashEditor';
 
 function App() {
-  const [editing, setEditing] = useState(false);
   const [userDataMessage, setUserDataMessage] = useState('You have not checked User Data.');
-
-  const toggleEditing = () => {
-    setEditing((e: boolean) => !e);
-  }
 
   const activeDash = 1; // hardcoded for now
   // eventually want something like:
@@ -20,9 +15,8 @@ function App() {
   // what happens if the user doesn't have any dashboards?
 
   const handleLogOut = () => {
-    console.log("log out test");
-    axios.post('/logout').then((res) => {
-      console.log(res);
+    axios.post('/logout').then((/* Response */) => {
+      // We don't need to do anything with this yet.
     }).catch((err) => {
       console.error("There was a problem while logging out", err);
     })
@@ -39,10 +33,6 @@ function App() {
   return (
     <>
       <h1>Rendering</h1>
-      {
-        editing ? <DashEditor dashboardId={dashboardId} toggleEditing={toggleEditing}/>
-          : <Dashboard dashboardId={dashboardId} toggleEditing={toggleEditing}/>
-      }
       <h1>Sign in</h1>
       <a className="button google" href="/login/federated/google">Sign in with Google</a>
       <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
