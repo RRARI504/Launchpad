@@ -7,13 +7,14 @@ import { prisma } from '../database/prisma.js';
 const layout = express.Router();
 
 // GET
-layout.get('/', (req, res) => {
-  res.status(200).send('LAYOUT GET');
-});
+// layout.get('/', (req, res) => {
+//   res.status(200).send('LAYOUT GET');
+// });
 
 
-//this should get all public layouts
+//READ: This should get all public layouts.
 layout.get('/public', async (req, res) => {
+  //console.log(req.params)
   try {
     const layouts = await prisma.layout.findMany({
       where: {
@@ -34,8 +35,28 @@ layout.get('/public', async (req, res) => {
 
 })
 
+//READ: This route will load one layout by id.
+layout.get('/:layoutId', async (req, res) => {
+  //needed to be converted to number
+  const layoutId = Number(req.params.layoutId);
+  try {
+    const layout = await prisma.layout.findUnique({
+      where: { id: layoutId },
+      include: {
+        layoutElements: {
+          include: { widget: true }
+        }
+      }
+    });
 
-
+    if(!layoutId){
+      return res.status(404).send('Could find layout:');
+    }
+    res.status(200).send(layout)
+  } catch (error) {
+    res.status(500).send({'Could not load layout:': error})
+  }
+})
 
 
 
