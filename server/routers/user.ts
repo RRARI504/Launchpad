@@ -1,22 +1,25 @@
 import express from 'express';
+import passport from 'passport';
+import { User } from '../../generated/prisma/client.js' // * 'User' Type.
 
 import { prisma } from '../database/prisma.js';
 
-const router = express.Router();
+const user = express.Router();
 
+// GET
 
-// want to use this to be able to grab user's information for client side
-router.get('/:id', async (req, res) => {
-// TODO AUTH AUTH AUTH
-
-    try {
-        
-    } catch (error) {
-
-    }
+// This is a temporary example function. It demonstrates how to 
+user.get('/', (req : any, res) => {
+  if (req.user) {
+    prisma.user.findUnique({where: {id: req.user.id}}).then((user: any) => { // ? Open Request: Update 'any' to accurately reflect what it is. It should be a User, but it freaks out when it is.
+      res.status(200).send(user.name);
+    })
+  } else {
+    res.status(200).send('You are not logged in.');
+  }
 });
 
-router.post('/create', async (req, res) => {
+user.post('/create', async (req, res) => {
   const { name }: { name: string} = req.body;
 
   try {
@@ -36,4 +39,4 @@ router.post('/create', async (req, res) => {
   }
 });
 
-export default router;
+export default user;
