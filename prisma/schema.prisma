@@ -44,10 +44,8 @@ model Session {
 model Theme {
   id     Int        @id @default(autoincrement())
   usedBy Dashboard?
-
   owner   User @relation(fields: [ownerId], references: [id])
   ownerId Int
-
   public   Boolean @default(false)
   navColor String
   bgColor  String
@@ -57,12 +55,9 @@ model Theme {
 model Layout {
   id     Int        @id @default(autoincrement())
   usedBy Dashboard?
-
   owner   User @relation(fields: [ownerId], references: [id])
   ownerId Int
-
   public Boolean @default(false)
-
   gridSize       String
   layoutElements LayoutElement[]
 }
