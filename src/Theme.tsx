@@ -15,7 +15,7 @@ import { useState, useEffect} from 'react';
 import axios from 'axios';
 
 function Theme ({dashboard}: {dashboard: { name: string, ownerId: number}}) {
-  const [themesList, setThemesList] = useState([]);
+  const [themesList, setThemesList] = useState([] as {navColor: string, bgColor: string, font: string}[]);
   // react hook needs to set theme
   //const [ownerId, setOwnerId] = useState({ownerId: -1});
   console.log(dashboard, 'THIS IS THE DASH OBJECT')
@@ -43,7 +43,8 @@ function Theme ({dashboard}: {dashboard: { name: string, ownerId: number}}) {
     <>
     {
       themesList.map((theme) => {
-        <li>{theme}</li>
+        console.log(theme)
+        return <div>{theme.navColor}{theme.bgColor}{theme.font}</div>
       })
     }
     </>
