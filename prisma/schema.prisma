@@ -17,7 +17,7 @@ model User {
   primaryDash        Dashboard?  @relation("PrimaryDash", fields: [primaryDashId], references: [id])
   primaryDashId      Int?        @unique
   credentialProvider String
-  credentialSubject  Int
+  credentialSubject  String
   themes             Theme[]
   layouts            Layout[]
 }
@@ -32,6 +32,13 @@ model Dashboard {
   layout    Layout @relation(fields: [layoutId], references: [id])
   layoutId  Int    @unique
   primaryOf User?  @relation("PrimaryDash")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt   DateTime
 }
 
 model Theme {
