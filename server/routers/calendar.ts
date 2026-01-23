@@ -1,37 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import express from 'express';
 
-// https://stackoverflow.com/questions/37688318/typescript-interface-possible-to-make-one-or-the-other-properties-required
-
-interface EventBase {
-  summary: string,
-  id: string
-}
-
-interface AllDayTime {
-  date: string,
-  dateTime?: never,
-  timeZone?: never
-}
-
-interface PartDayTime {
-  date?: never,
-  dateTime: string,
-  timeZone: string
-}
-
-interface EventAllDay extends EventBase {
-  start: AllDayTime
-  end: AllDayTime
-}
-
-interface EventPartDay extends EventBase {
-  start: PartDayTime
-  end: PartDayTime
-}
-
-type Event = EventAllDay | EventPartDay;
-
+import type { Event } from '../../types/Event.ts';
 
 const router = express.Router();
 

@@ -2,34 +2,7 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-interface EventBase {
-  summary: string,
-  id: string
-}
-
-interface AllDayTime {
-  date: string,
-  dateTime?: never,
-  timeZone?: never
-}
-
-interface PartDayTime {
-  date?: never,
-  dateTime: string,
-  timeZone: string
-}
-
-interface EventAllDay extends EventBase {
-  start: AllDayTime
-  end: AllDayTime
-}
-
-interface EventPartDay extends EventBase {
-  start: PartDayTime
-  end: PartDayTime
-}
-
-type Event = EventAllDay | EventPartDay;
+import type { Event } from '../types/Event.ts';
 
 function Calendar() {
   const [events, setEvents] = useState([] as Event[]);
