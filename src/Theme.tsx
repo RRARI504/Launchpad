@@ -13,14 +13,15 @@
 import { useState, useEffect} from 'react';
 
 import axios from 'axios';
-import { Button, HStack } from '@chakra-ui/react'
+// import { Button, HStack } from '@chakra-ui/react'
 
-function Theme ({dashboard}: {dashboard: { name: string, ownerId: number}}) {
+
+function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: number}, ownerId: number}) {
   const [themesList, setThemesList] = useState([] as {navColor: string, bgColor: string, font: string}[]);
   
   // first lets get all the themes of that user
   const allThemes = async () => {
-    const ownerId  = dashboard.ownerId;
+    
     try {
       const test = await axios.get(`/theme/${ownerId}`);
       setThemesList(test.data);
@@ -59,15 +60,9 @@ function Theme ({dashboard}: {dashboard: { name: string, ownerId: number}}) {
     <>
     {
       themesList.map((theme) => {
-        console.log(theme)
         return <div>{theme.navColor}{theme.bgColor}{theme.font}</div>
       })
     }
-    <HStack>
-      <Button>
-        Click me
-      </Button>
-    </HStack>
     </>
   )
 }

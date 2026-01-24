@@ -3,16 +3,17 @@ import { Link } from "react-router";
 import axios from 'axios';
 import Theme from './Theme';
 
-function DashEditor({dashboardId}: {dashboardId: number}) {
+function DashEditor({dashboardId, ownerId}: {dashboardId: number, ownerId: number}) {
   const [dashboard, setDashboard] = useState({name: "Loading", ownerId: -1});
   const [newName, setNewName] = useState('');
   const [renaming, setRenaming] = useState(false);
 
+  // const [userId, setUserId] = useState(ownerId);
+
+
   const loadDashboard = async () => {
     try {
       const response = await axios.get(`/dashboard/${dashboardId}`);
-      console.log(response);
-      console.log(response.data);
       setDashboard(response.data);
       setNewName(response.data.name);
     } catch (error) {
@@ -69,7 +70,7 @@ function DashEditor({dashboardId}: {dashboardId: number}) {
     <>
       <h2>Editing: {renderName()}</h2>
       <Link to='/'>Done</Link>
-      <Theme dashboard={dashboard} />
+      <Theme dashboard={dashboard} ownerId={ownerId} />
     </>
   );
 }

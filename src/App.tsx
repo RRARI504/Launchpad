@@ -7,8 +7,8 @@ import Dashboard from './Dashboard';
 import DashEditor from './DashEditor';
 
 function App() {
-  const [userDataMessage, setUserDataMessage] = useState('You have not checked User Data.');
-
+  const [userDataMessage, setUserDataMessage] = useState({name: 'default'});
+  const [userId, setUserId] = useState(-1);
   const activeDash = 1; // hardcoded for now
   // eventually want something like:
   // const [activeDash, setActiveDash] = useState(null)
@@ -25,6 +25,8 @@ function App() {
   const getUserData = () => {
     axios.get('/user').then((res) => {
       setUserDataMessage(res.data);
+      console.log(res.data.id)
+      setUserId(res.data.id)
     }).catch((err) => {
       console.error("There was a problem while getting user data", err);
     })
@@ -37,11 +39,11 @@ function App() {
       <a className="button google" href="/login/federated/google">Sign in with Google</a>
       <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
       <button className="testGetUserData" onClick={() => {getUserData()}}>Get User Data</button>
-      <p>{userDataMessage}</p>
+      <p>{userDataMessage.name}</p>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Dashboard dashboardId={activeDash}/>} />
-          <Route path='/edit' element={<DashEditor dashboardId={activeDash}/>} />
+          <Route path='/edit' element={<DashEditor dashboardId={activeDash} ownerId={userId} />} />
         </Routes>
       </BrowserRouter>
     </>
