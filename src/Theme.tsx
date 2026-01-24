@@ -18,7 +18,8 @@ import axios from 'axios';
 
 function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: number}, ownerId: number}) {
   const [themesList, setThemesList] = useState([] as {navColor: string, bgColor: string, font: string}[]);
-  const [currTheme] = useState(themesList[0])
+  const [currTheme, setCurrTheme] = useState(themesList[0]);
+  // const [form, setForm] = useState({navColor: 'white', bgColor: 'white', font: 'ariel'});
   console.log(currTheme);
   // first lets get all the themes of that user
   const allThemes = async () => {
@@ -58,16 +59,20 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   }, [dashboard.ownerId])
 
   return (
-    <>
+    <div>
     {
       themesList.map((theme) => {
-        return <button>{theme.navColor}{theme.bgColor}{theme.font}</button>
+        return <ul>
+          <button onClick={() => setCurrTheme(theme)}> navColor: {theme.navColor} bgColor: {theme.bgColor} font: {theme.font}</button>
+        </ul>
       })
     }
       <form>
-        <input type="text">{currTheme.navColor}</input>
+        <input type='text' value='navColor'></input>
+        <input type='text' value='bgColor'></input>
+        <input type='text' value='font'></input>
       </form>
-    </>
+    </div>
   )
 }
 
