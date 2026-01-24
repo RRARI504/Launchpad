@@ -4,8 +4,9 @@ import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import Hub from "./Hub";
-import Dashboard from "./Dashboard";
-import DashEditor from "./DashEditor";
+import Dashboard from './Dashboard';
+import DashEditor from './DashEditor';
+import Calendar from './Calendar';
 
 function App() {
   const [userDataMessage, setUserDataMessage] = useState(
@@ -69,6 +70,7 @@ function App() {
         Get User Data
       </button>
       <p>{userDataMessage}</p>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard dashboardId={activeDash} />} />
           <Route
@@ -77,6 +79,8 @@ function App() {
           />
           <Route path="/hub" element={<Hub />} />
         </Routes>
+        </BrowserRouter>
+      <Calendar />
     </>
   );
 }

@@ -11,15 +11,27 @@ datasource db {
 }
 
 model User {
-  id                 Int         @id @default(autoincrement())
+  id                 Int            @id @default(autoincrement())
   name               String?
-  dashboards         Dashboard[] @relation("UserDashboards")
-  primaryDash        Dashboard?  @relation("PrimaryDash", fields: [primaryDashId], references: [id])
-  primaryDashId      Int?        @unique
+  dashboards         Dashboard[]    @relation("UserDashboards")
+  googleTokens       GoogleToken[]
+  primaryDash        Dashboard?     @relation("PrimaryDash", fields: [primaryDashId], references: [id])
+  primaryDashId      Int?           @unique
   credentialProvider String
   credentialSubject  String
   themes             Theme[]
   layouts            Layout[]
+}
+
+model GoogleToken {
+  id            Int       @id @default(autoincrement())
+  account       User      @relation(fields: [accountId], references: [id])
+  accountId     Int
+  access_token  String
+  id_token      String
+  authProfile   Boolean   @default(false)
+  authGmail     Boolean   @default(false)
+  authCalendar  Boolean   @default(false)
 }
 
 model Dashboard {
@@ -44,10 +56,8 @@ model Session {
 model Theme {
   id     Int        @id @default(autoincrement())
   usedBy Dashboard?
-
   owner   User @relation(fields: [ownerId], references: [id])
   ownerId Int
-
   public   Boolean @default(false)
   navColor String
   bgColor  String
@@ -57,12 +67,9 @@ model Theme {
 model Layout {
   id     Int        @id @default(autoincrement())
   usedBy Dashboard?
-
   owner   User @relation(fields: [ownerId], references: [id])
   ownerId Int
-
   public Boolean @default(false)
-
   gridSize       String
   layoutElements LayoutElement[]
 }
