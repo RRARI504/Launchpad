@@ -1,11 +1,48 @@
-// LayoutGallery.tsx
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
+//set types
+type Layout = {
+  id: number;
+  gridSize: string;
+  layoutElements: [];
+};
+
 function LayoutGallery() {
-  console.log('LayoutGallery rendered');
+  //console.log('LayoutGallery rendered');
+  const [layout, setLayout] = useState<Layout[]>([]);
+  console.log('layouts state:', layout);
+
+  //when component is mounted fetch layouts
+  useEffect(() => {
+    //GET to backend endpoint
+    axios.get('/layout/public')
+    .then((res) => {
+      console.log(res.data);
+      //update state of layouts to be actual layout data
+      setLayout(res.data);
+
+    }).catch((err) => {
+      console.log("Couldn't find any layouts:", err);
+    });
+  }, [])
 
   return (
     <>
       <h3>LAYOUT GALLERY</h3>
-      <p>This component is rendering.</p>
+      {/* <button onClick={() => setLayout([1, 2, 3])}>
+        fake loads
+
+      </button> */}
+       {layout.map((lay) => (
+        <div key={lay.id}>
+          <p>LAYOUT #{lay.id}</p>
+          <p>GRID: {lay.gridSize}</p>
+          <p>ELEMENTS: {lay.layoutElements.length}</p>
+        </div>
+
+      ))}
+
     </>
   );
 }
