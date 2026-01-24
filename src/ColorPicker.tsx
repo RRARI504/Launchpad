@@ -2,7 +2,7 @@ import { ColorPicker } from "@chakra-ui/react"
 // import { useState } from "react"
 
 function Color ({onValueChange}: {onValueChange: (e: any) => void}) {
-  console.log(onValueChange, 'hey there')
+  //console.log(onValueChange, 'hey there')
   // const [color, setColor] = useState('#ffffff')
   // console.log(color)
   //const picker = useColorPicker();

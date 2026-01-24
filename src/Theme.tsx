@@ -20,11 +20,13 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   const [themesList, setThemesList] = useState([] as {navColor: string, bgColor: string, font: string}[]);
   const [currTheme, setCurrTheme] = useState(themesList[0]);
   // const [form, setForm] = useState({navColor: 'white', bgColor: 'white', font: 'ariel'});
-  //const [test, setTest] = useState('test')
+  const [color, setColor] = useState('test')
   const [navColorPick, setNavColorPick] = useState('#ff0000');
   const [bgColorPick, setBgColorPick] = useState('#ff0000');
   const [fontPick, setFontPick] = useState('#ff0000');
   // first lets get all the themes of that user
+  // console.log(test, 'testing')
+  console.log(navColorPick , 'nav', bgColorPick, 'bg', fontPick, 'font')
   const allThemes = async () => {
     
     try {
@@ -37,7 +39,8 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   }
   
   const colorPicker = (e: any) => {
-    console.log(e)
+    setColor(e.value.toString('hex'));
+    //console.log(e.value.toString('hex'))
     //setNavColorPick(e.value.toString('hex'))
     
   }
@@ -77,15 +80,16 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
     }
       <form>
         <label>navColor</label>
-        <div id='navColor'>
+        <div id='navColor' onChange={() => setNavColorPick(color)}>
+          
           <Color onValueChange={colorPicker}/>
         </div>
         <label>bgColor</label>
-        <div id='bgColor'>
+        <div id='bgColor' onChange={() => setBgColorPick(color)}>
           <Color onValueChange={colorPicker}/>
         </div>
         <label>font</label>
-        <div id='font'>
+        <div id='font' onChange={() => setFontPick(color)}>
           <Color onValueChange={colorPicker}/>
         </div>
       </form>
