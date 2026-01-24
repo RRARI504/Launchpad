@@ -11,7 +11,7 @@
 
 
 import { useState, useEffect} from 'react';
-// import { ColorPicker } from "@chakra-ui/react"
+import Color from './ColorPicker';
 import axios from 'axios';
 
 
@@ -20,7 +20,10 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   const [themesList, setThemesList] = useState([] as {navColor: string, bgColor: string, font: string}[]);
   const [currTheme, setCurrTheme] = useState(themesList[0]);
   // const [form, setForm] = useState({navColor: 'white', bgColor: 'white', font: 'ariel'});
-  console.log(currTheme);
+  //const [test, setTest] = useState('test')
+  const [navColorPick, setNavColorPick] = useState('#ff0000');
+  const [bgColorPick, setBgColorPick] = useState('#ff0000');
+  const [fontPick, setFontPick] = useState('#ff0000');
   // first lets get all the themes of that user
   const allThemes = async () => {
     
@@ -33,6 +36,11 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
     }
   }
   
+  const colorPicker = (e: any) => {
+    console.log(e)
+    //setNavColorPick(e.value.toString('hex'))
+    
+  }
 
   // POST to make a new theme
   // make sure field is completely filled out
@@ -49,7 +57,7 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   // }
 
 // test
-
+// const picker = Color();
 
   useEffect(() => {
     // if the owner is provided
@@ -68,9 +76,18 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
       })
     }
       <form>
-        <input type='text' value='navColor'></input>
-        <input type='text' value='bgColor'></input>
-        <input type='text' value='font'></input>
+        <label>navColor</label>
+        <div id='navColor'>
+          <Color onValueChange={colorPicker}/>
+        </div>
+        <label>bgColor</label>
+        <div id='bgColor'>
+          <Color onValueChange={colorPicker}/>
+        </div>
+        <label>font</label>
+        <div id='font'>
+          <Color onValueChange={colorPicker}/>
+        </div>
       </form>
     </div>
   )
