@@ -45,19 +45,20 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
     
   }
 
-  // POST to make a new theme
-  // make sure field is completely filled out
-  // const newTheme = async () => {
-  //   const ownerId = dashboard.ownerId; // need to send this in the request as well
-  //   try {
-  //     if({isPublic: boolean, navColor: string, bgColor: string, font: string}, ownerId){
-  //       // so if none of those fields are empty
-  //       await axios.post('/theme', {isPublic, navColor, bgColor, font, ownerId})
-  //     }
-  //   } catch (error) {
-  //     console.error('Failed to submit theme', error);
-  //   }
-  // }
+  const createTheme = async () => {
+    try {
+      await axios.post('/theme', {
+        public: false,
+        navColor: navColorPick,
+        bgColor: bgColorPick,
+        font: fontPick,
+        ownerId: ownerId
+      })
+      allThemes();
+    } catch (error) {
+      console.error(error, 'something went wrong')
+    }
+  }
 
 // test
 // const picker = Color();
@@ -80,19 +81,20 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
     }
       <form>
         <label>navColor</label>
-        <div id='navColor' onChange={() => setNavColorPick(color)}>
+        <div id='navColor'>
           
-          <Color onValueChange={colorPicker}/>
+          <Color onValueChange={(color) => colorPicker(color)} />
         </div>
         <label>bgColor</label>
-        <div id='bgColor' onChange={() => setBgColorPick(color)}>
-          <Color onValueChange={colorPicker}/>
+        <div id='bgColor'>
+          <Color onValueChange={(color) => setBgColorPick(color.toString('hex'))}/>
         </div>
         <label>font</label>
-        <div id='font' onChange={() => setFontPick(color)}>
-          <Color onValueChange={colorPicker}/>
+        <div id='font'>
+          <Color onValueChange={(color) => setFontPick(color.toString('hex'))}/>
         </div>
       </form>
+      <button onClick={createTheme}>CREATE</button>
     </div>
   )
 }
