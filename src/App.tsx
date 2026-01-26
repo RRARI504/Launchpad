@@ -1,27 +1,40 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 // import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router";
 
+import Hub from "./Hub";
 import Dashboard from './Dashboard';
 import DashEditor from './DashEditor';
 import Calendar from './Calendar';
 
 function App() {
-  const [userDataMessage, setUserDataMessage] = useState({name: 'default'});
   const [userId, setUserId] = useState(-1);
+  const [userDataMessage, setUserDataMessage] = useState(
+    "You have not checked User Data.",
+  );
+  const [user, setUser] = useState({
+    id: null,
+    name: "",
+    credentialProvider: "",
+    credentialSubject: null,
+    primaryDashId: null,
+  });
   const activeDash = 1; // hardcoded for now
   // eventually want something like:
   // const [activeDash, setActiveDash] = useState(null)
   // what happens if the user doesn't have any dashboards?
 
   const handleLogOut = () => {
-    axios.post('/logout').then((/* Response */) => {
-      // We don't need to do anything with this yet.
-    }).catch((err) => {
-      console.error("There was a problem while logging out", err);
-    })
-  }
+    axios
+      .post("/logout")
+      .then((/* Response */) => {
+        // We don't need to do anything with this yet.
+      })
+      .catch((err) => {
+        console.error("There was a problem while logging out", err);
+      });
+  };
 
   const getUserData = () => {
     axios.get('/user').then((res) => {
@@ -45,8 +58,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Dashboard dashboardId={activeDash}/>} />
           <Route path='/edit' element={<DashEditor dashboardId={activeDash} ownerId={userId} />} />
+          <Route path="/hub" element={<Hub />} />
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
       <Calendar />
     </>
   );
