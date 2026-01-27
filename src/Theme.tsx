@@ -25,7 +25,7 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
   const [bgColorPick, setBgColorPick] = useState('#ff0000');
   const [fontPick, setFontPick] = useState('#ff0000');
   // first lets get all the themes of that user
-  // console.log(test, 'testing')
+  console.log(ownerId, 'myOwner id')
   console.log(navColorPick , 'nav', bgColorPick, 'bg', fontPick, 'font')
   const allThemes = async () => {
     
@@ -46,21 +46,22 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
     //setNavColorPick(e.value.toString('hex'))
     
   }
-    console.log(color, 'this is color')
-  // const createTheme = async () => {
-  //   try {
-  //     await axios.post('/theme', {
-  //       public: false,
-  //       navColor: navColorPick,
-  //       bgColor: bgColorPick,
-  //       font: fontPick,
-  //       ownerId: ownerId
-  //     })
-  //     allThemes();
-  //   } catch (error) {
-  //     console.error(error, 'something went wrong')
-  //   }
-  // }
+
+  console.log(color, 'this is color')
+  const createTheme = async () => {
+    try {
+      await axios.post('/theme', {
+        public: false,
+        navColor: navColorPick,
+        bgColor: bgColorPick,
+        font: fontPick,
+        ownerId: ownerId
+      })
+      allThemes();
+    } catch (error) {
+      console.error(error, 'something went wrong')
+    }
+  }
 
 // test
 // const picker = Color();
@@ -96,7 +97,7 @@ function Theme ({dashboard, ownerId}: {dashboard: { name: string, ownerId: numbe
           <Color onValueChange={colorPicker(setFontPick)}/>
         </div>
       </form>
-      <button>CREATE</button>
+      <button onClick={createTheme}>CREATE</button>
     </div>
   )
 }
