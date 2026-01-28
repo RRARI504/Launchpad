@@ -69,15 +69,6 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
-      <h1>Rendering</h1>
-      <h1>Sign in</h1>
-      <a className="button google" href="/login/federated/google">Sign in with Google</a>
-      <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
-      <button className="testGetUserData" onClick={() => {getUserData()}}>Get User Data</button>
-      <p>{userDataMessage}</p>
-=======
->>>>>>> 5ad0aad04e2f29c7747501ca680f44c7e821efb1
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home getUserData={getUserData} handleLogOut={handleLogOut} userDataMessage={userDataMessage}/>} />
