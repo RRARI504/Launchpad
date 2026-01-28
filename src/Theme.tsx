@@ -13,7 +13,7 @@
 import { useState, useEffect} from 'react';
 import Color from './ColorPicker';
 import axios from 'axios';
-
+import { ColorSwatch } from "@chakra-ui/react"
 
 
 function Theme ({dashboard, ownerId, dashboardId}: {dashboard: { name: string, ownerId: number}, ownerId: number, dashboardId : number}) {
@@ -102,7 +102,7 @@ function Theme ({dashboard, ownerId, dashboardId}: {dashboard: { name: string, o
           <button onClick={() => {
             setCurrTheme(theme);
             updateTheme({themeId: theme.id})
-            }}> navColor: {theme.navColor} bgColor: {theme.bgColor} font: {theme.font}</button>
+            }}> navColor: <ColorSwatch value={theme.navColor} /> bgColor: <ColorSwatch value={theme.bgColor} /> font: <ColorSwatch value={theme.font} /></button>
         </ul>
       })
     }
