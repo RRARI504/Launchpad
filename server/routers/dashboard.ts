@@ -5,6 +5,7 @@ import passport from 'passport'
 import { Prisma } from '../../generated/prisma/client.js'; // not sure about this, although it matches what was in database/prisma
 import { User } from '../../generated/prisma/client.js'
 import { prisma } from '../database/prisma.js';
+import theme from './theme.js';
 
 const router = express.Router();
 
@@ -122,7 +123,7 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   // TODO: auth!!
 
-  const { name } = req.body;
+  const { name, themeId } = req.body;
   const { id: idString } = req.params;
   const id = parseInt(idString);
 
@@ -132,7 +133,8 @@ router.patch('/:id', async (req, res) => {
         id
       },
       data: {
-        name
+        name,
+        themeId
       }
     });
 
@@ -148,6 +150,8 @@ router.patch('/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+
 
 // deletes dashboard based on dashboard id
 router.delete('/:id', async (req, res) => {

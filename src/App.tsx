@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 // import { useState } from 'react';
+// import axios from 'axios';
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import Hub from "./Hub";
 import Dashboard from './Dashboard';
 import DashEditor from './DashEditor';
+import Home from './Home';
+
 import Calendar from './Calendar';
 
 function App() {
@@ -17,8 +20,8 @@ function App() {
   const activeDash = 1; // hardcoded for now
   // eventually want something like:
   // const [activeDash, setActiveDash] = useState(null)
-  // what happens if the user doesn't have any dashboards?
-
+  // ? what happens if the user doesn't have any dashboards?
+  
   const handleLogOut = () => {
     axios
       .post("/logout")
@@ -66,15 +69,19 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <h1>Rendering</h1>
       <h1>Sign in</h1>
       <a className="button google" href="/login/federated/google">Sign in with Google</a>
       <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
       <button className="testGetUserData" onClick={() => {getUserData()}}>Get User Data</button>
       <p>{userDataMessage}</p>
+=======
+>>>>>>> 5ad0aad04e2f29c7747501ca680f44c7e821efb1
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Dashboard dashboardId={activeDash}/>} />
+          <Route path='/' element={<Home getUserData={getUserData} handleLogOut={handleLogOut} userDataMessage={userDataMessage}/>} />
+          <Route path='/dashboard' element={<Dashboard dashboardId={activeDash}/>} />
           <Route path='/edit' element={<DashEditor dashboardId={activeDash} ownerId={userId} />} />
           <Route path="/hub" element={<Hub dashboards={dashboards} getDashboardData={getDashboardsData} ownerId={userId}/>} />
         </Routes>
