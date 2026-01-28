@@ -8,7 +8,7 @@ type Layout = {
   layoutElements: [];
 };
 
-function LayoutGallery({onSelect}: {onSelect: (layoutId: number) => void}) {
+function LayoutGallery({onSelect, onCopy,}: {onSelect: (layoutId: number) => void; onCopy: (layoutId: number) => void;}) {
   const [layout, setLayout] = useState<Layout[]>([]);
 
   //when component is mounted fetch layouts
@@ -35,6 +35,7 @@ function LayoutGallery({onSelect}: {onSelect: (layoutId: number) => void}) {
          <div key={lay.id}>
           <p>LAYOUT #{lay.id}</p>
           <button onClick={() => onSelect(lay.id)}> SELECT LAYOUT </button>
+          <button onClick={() => onCopy(lay.id)}>Copy Layout</button>
         </div>
 
       ))}

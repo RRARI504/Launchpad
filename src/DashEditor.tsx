@@ -76,6 +76,16 @@ function DashEditor({dashboardId, ownerId}: {dashboardId: number, ownerId: numbe
     });
   }, [selectedLayoutId]);
 
+  const copyLayout = async (layoutId: number) => {
+    try {
+      const response = await axios.post(`/layout/${layoutId}/copy`)
+      console.log('Layout is copied:', response.data)
+    } catch (error) {
+      console.error('Failed to copy layout:', error);
+    }
+
+  }
+
   const renderName = () => {
     if (renaming) {
       return (
@@ -97,11 +107,11 @@ function DashEditor({dashboardId, ownerId}: {dashboardId: number, ownerId: numbe
       <h2>Editing: {renderName()}</h2>
       <Link to='/'>Done</Link>
       <Theme dashboard={dashboard} ownerId={ownerId} />
-      <LayoutGallery onSelect={setSelectedLayoutId}/>
+      <LayoutGallery onSelect={setSelectedLayoutId} onCopy={copyLayout}/>
       {selectedLayout && (
         <>
         <h4>LAYOUT PREVIEW</h4>
-        <p>SELECTED LAYOUT {selectedLayoutId}</p>
+        <p>SELECTED LAYOUT #{selectedLayoutId}</p>
         <p>GRID SIZE: {selectedLayout.gridSize}</p>
         <p>ELEMENTS: {selectedLayout.layoutElements.length}</p>
         </>
