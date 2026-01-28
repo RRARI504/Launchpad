@@ -32,9 +32,14 @@ function App() {
 
   const getUserData = () => {
     axios.get('/user').then((res) => {
-      setUserDataMessage(res.data);
-      console.log(res.data.id)
-      setUserId(res.data.id)
+      if (res.data.id) { // not sure about this
+        setUserDataMessage(res.data);
+        console.log(res.data.id)
+        setUserId(res.data.id)
+      } else {
+        setUserDataMessage({name: 'Not logged in.'});
+        setUserId(-1);
+      }
     }).catch((err) => {
       console.error("There was a problem while getting user data", err);
     })
@@ -64,7 +69,7 @@ console.log(userId)
       <a className="button google" href="/login/federated/google">Sign in with Google</a>
       <button className="logout button google" onClick={() => {handleLogOut()}}>Log Out</button>
       <button className="testGetUserData" onClick={() => {getUserData()}}>Get User Data</button>
-      <p>{userDataMessage}</p>
+      <p>{userDataMessage.name}</p>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Dashboard dashboardId={activeDash}/>} />
