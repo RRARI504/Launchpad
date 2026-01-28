@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 
 import axios, { AxiosError } from 'axios';
 
@@ -15,6 +15,7 @@ function Calendar() {
   const [authStatus, setAuthStatus] = useState(AuthStatus.SignedOut);
   const [events, setEvents] = useState([] as Event[]);
   const [calendars, setCalendars] = useState([] as CalendarObject[]);
+  const [activeCalendarId, setActiveCalendarId] = useState('');
 
   const checkAuth = async () => {
     try {
@@ -37,10 +38,18 @@ function Calendar() {
     }
   }
 
-  const getEvents = async () => {
+  const handleCalendarSelect = (event: ChangeEvent) => {
+    const target = event.target as HTMLSelectElement;
+    getEvents(target.value);
+  }
+
+  const getEvents = async (calendarId = '') => {
+    const query = calendarId ? `?calendarId=${encodeURIComponent(calendarId)}` : ''; //apparently one of the Google calendars has a pound sign
+
     try {
-      const response = await axios.get('/calendar');
+      const response = await axios.get(`/calendar${query}`);
       setEvents(response.data);
+      setActiveCalendarId(calendarId);
     } catch (error) {
       console.error('Failed to get calendar events:', error);
     }
@@ -63,7 +72,7 @@ function Calendar() {
   const renderCalendarList = () => {
     if (authStatus === AuthStatus.Authorized) {
       return (
-        <select>
+        <select onChange={handleCalendarSelect}>
           {calendars.map(calendar => {
             return <option value={calendar.id}>{calendar.summary}</option>;
           })}

@@ -52,7 +52,7 @@ async function getGoogleOauth(userId: number) {
 
 // TODO: figure out the request.User type
 router.get('/', async (req: any, res) => {
-  console.log(req.query);
+  const calendarId = req.query.calendarId === undefined ? 'primary' : req.query.calendarId;
 
   const userId = req.user?.id;
 
@@ -70,7 +70,7 @@ router.get('/', async (req: any, res) => {
     const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
     const response = await calendar.events.list({
-      calendarId: 'primary',
+      calendarId: calendarId,
       timeMin: new Date().toISOString(),
       maxResults: 10,
       singleEvents: true,
@@ -135,10 +135,6 @@ router.get('/list', async (req: any, res) => {
     console.error('Failed to get calendar list:', error);
     res.sendStatus(500);
   }
-});
-
-router.get('/next', (req, res) => {
-  res.sendStatus(501);
 });
 
 // todo: fix any
